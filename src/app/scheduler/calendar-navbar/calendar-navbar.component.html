@@ -1,0 +1,42 @@
+<div>
+  <div class="containerBox">
+    
+    <div *ngIf="slectedview === 'giorno'" class="panelSearch">
+      <button mat-raised-button color="primary" (click)="onPrevMonth()">Previous Month</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="onNextMonth()">Next Month</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="onPrevDay()">Previous day</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="onNextDay()">Next day</button>&nbsp;
+      <mat-form-field>
+        <mat-select name="room" [ngModel]="roomid" (selectionChange)="onRoomChange($event)">
+          <mat-option *ngFor="let room of rooms" [value]="room.key">
+            {{ room.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="slectedview === 'settimana'" class="panelSearch">
+      <button mat-raised-button color="primary" (click)="onPrevWeek()">Previous week</button>&nbsp;
+      <button mat-raised-button color="primary" (click)="onNextWeek()">Next week</button>&nbsp;
+      <mat-form-field>
+        <mat-select name="room" [ngModel]="roomid" (selectionChange)="onRoomChange($event)">
+          <mat-option *ngFor="let room of rooms" [value]="room.key">
+            {{ room.value }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="panelSwitcher">
+      <mat-button-toggle-group [value]="slectedview" (change)="onViewChange($event)">
+        <mat-button-toggle value="giorno">Day</mat-button-toggle>
+        <mat-button-toggle value="settimana">Week</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+  <div class="containerStatusbar">
+    {{ currvalues?.dayWeekName }} {{ currvalues?.day }} {{ currvalues?.monthName }} {{ currvalues?.year }}
+    <div class="panelStatusbar" *ngIf="statusbar">
+      &nbsp;-&nbsp;&nbsp;Activity:
+      {{ statusbar.startTime }} / {{ statusbar.endTime }}&nbsp;{{ statusbar.title }}&nbsp;
+    </div>    
+  </div>
+</div>
